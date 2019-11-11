@@ -33,12 +33,13 @@ class MyGallery extends Component {
       <div style={style.divStyle}>
         {this.state.isLoading ? <Spinner /> : null}
         {this.props.ImageUrl ? (
-          this.props.ImageUrl.map(img => (
+          this.props.ImageUrl.map((img, i) => (
             // <img src={img} height="200px" style={style.imageStyle} />
             <ModalImage
               small={img}
               large={img}
               hideZoom={true}
+              key={i}
               className="imageStyle"
             />
           ))

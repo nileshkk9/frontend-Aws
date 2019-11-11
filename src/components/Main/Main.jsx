@@ -39,7 +39,7 @@ class Main extends Component {
     return (
       <div>
         {this.state.value === 0 ? (
-          <div style={{ height: "100vh" }}>
+          <div style={{ height: "80vh" }}>
             <CameraModule
               myfunc={this.getState}
               imageCompression={0.5}
@@ -56,15 +56,26 @@ class Main extends Component {
           </div>
         )}
 
-        <BottomNavigation
-          value={this.state.value}
-          onChange={this.handleChange}
-          showLabels
-        >
-          <BottomNavigationAction label="Camera" icon={<Camera />} />
-          <BottomNavigationAction label="Add Photo" icon={<AddAPhoto />} />
-          <BottomNavigationAction label="Gallery" icon={<AddAPhoto />} />
-        </BottomNavigation>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <BottomNavigation
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              opacity: 0.8,
+              borderRadius: "10px",
+              padding: "10px",
+              position: "fixed",
+              bottom: "0px"
+            }}
+            value={this.state.value}
+            onChange={this.handleChange}
+            showLabels
+          >
+            <BottomNavigationAction label="Camera" icon={<Camera />} />
+            <BottomNavigationAction label="Add Photo" icon={<AddAPhoto />} />
+            <BottomNavigationAction label="Gallery" icon={<AddAPhoto />} />
+          </BottomNavigation>
+        </div>
       </div>
     );
   }
