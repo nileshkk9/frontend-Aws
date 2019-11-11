@@ -7,7 +7,7 @@ import Camera from "@material-ui/icons/Camera";
 import AddAPhoto from "@material-ui/icons/AddAPhoto";
 import CameraModule from "../CameraModule/CameraModule";
 import UploadImage from "../UploadImage/UploadImage";
-import Gallery from "../Gallery/Gallery";
+import MyGallery from "../Gallery/Gallery";
 // import Spinner from "../SpinnerV3/Spinner";
 
 // const getState = state => {};
@@ -24,9 +24,9 @@ class Main extends Component {
     if (state) {
       this.setState({
         value: 2,
-        FaceMatches: state
+        ImageUrl: state
       });
-      console.log(this.state.FaceMatches);
+      console.log(this.state.ImageUrl);
     }
   };
   handleChange = (e, newVal) => {
@@ -39,8 +39,12 @@ class Main extends Component {
     return (
       <div>
         {this.state.value === 0 ? (
-          <div style={{ height: "85vh" }}>
-            <CameraModule myfunc={this.getState} />
+          <div style={{ height: "100vh" }}>
+            <CameraModule
+              myfunc={this.getState}
+              imageCompression={0.5}
+              isFullscreen={true}
+            />
           </div>
         ) : this.state.value === 1 ? (
           <div style={{ height: "85vh" }}>
@@ -48,7 +52,7 @@ class Main extends Component {
           </div>
         ) : (
           <div style={{ height: "85vh" }}>
-            <Gallery FaceMatches={this.state.FaceMatches} />
+            <MyGallery ImageUrl={this.state.ImageUrl} />
           </div>
         )}
 

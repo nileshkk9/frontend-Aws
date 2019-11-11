@@ -32,13 +32,13 @@ class CameraModule extends Component {
         headers: headers
       })
       .then(response => {
-        // console.log(response.data.search.FaceMatches);
+        console.log(response);
         this.setState({
           isLoading: false,
-          FaceMatches: response.data.search.FaceMatches
+          ImageUrl: response.data.ImageUrl
         });
-        console.log(this.state.FaceMatches);
-        this.props.myfunc(this.state.FaceMatches);
+        // console.log(this.state.FaceMatches);
+        this.props.myfunc(this.state.ImageUrl);
       })
       .catch(error => {
         console.log(error);
@@ -54,8 +54,7 @@ class CameraModule extends Component {
               this.onTakePhoto(dataUri);
             }}
           />
-          {this.state.isLoading ? <Spinner /> : null}
-          {/* <Spinner /> */}
+          <div>{this.state.isLoading ? <Spinner /> : null}</div>
         </div>
       </div>
     );

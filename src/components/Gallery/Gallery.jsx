@@ -1,67 +1,66 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
+// import Gallery from "react-photo-gallery";
+import ModalImage from "react-modal-image";
 import Spinner from "../SpinnerV3/Spinner";
+import "./style.css";
 
-// const getState = state => {};
-const API_URL = "https://aws-rekognition-api.herokuapp.com/s3/getImageByKey";
-const JWT_Token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDlmNTE2NDAzZDUxZjAwMTdlNWJmZDUiLCJpYXQiOjE1NzA3MjIxNDh9.HVCQmVCHIL_EzAeskRI_V8v7Z1CJ4t8gPtSY6IWPwxc";
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: JWT_Token
-};
-class Gallery extends Component {
+class MyGallery extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
-      Images: []
+      photos: []
     };
   }
-  fetchImages = () => {
-    const data = {
-      FaceMatches: this.props.FaceMatches
-    };
-
-    axios
-      .post(API_URL, data, {
-        headers
-      })
-      .then(response => {
-        console.log(response.data.data);
-        this.setState({
-          isLoading: false,
-          Images: response.data.data
-        });
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ isLoading: false });
-      });
-  };
-  componentDidMount() {
-    // console.log(this.props.FaceMatches);
-    this.setState({ isLoading: true });
-    this.fetchImages();
-  }
+  // async componentDidMount() {
+  //   const photos = await this.constructGalleryArray(this.props.ImageUrl);
+  //   this.setState({ photos });
+  // }
+  // constructGalleryArray = ImageUrl => {
+  //   const arr = [];
+  //   ImageUrl.forEach(image => {
+  //     arr.push({
+  //       src: image,
+  //       width: 2,
+  //       height: 1
+  //     });
+  //   });
+  //   return arr;
+  // };
   render() {
     return (
-      <div>
+      <div style={style.divStyle}>
         {this.state.isLoading ? <Spinner /> : null}
-        <ul>
-          {this.state.Images.map((image, i) => (
-            <li key={i}>
-              <img
-                style={{ width: "100px" }}
-                src={"data:image/png;base64," + image.Body}
-                alt="hola"
-              />
-            </li>
-          ))}
-        </ul>
+        {this.props.ImageUrl ? (
+          this.props.ImageUrl.map(img => (
+            // <img src={img} height="200px" style={style.imageStyle} />
+            <ModalImage
+              small={img}
+              large={img}
+              hideZoom={true}
+              className="imageStyle"
+            />
+          ))
+        ) : (
+          <h1>No Image Present</h1>
+        )}
       </div>
     );
   }
 }
 
-export default Gallery;
+const style = {
+  divStyle: {
+    display: "flex",
+    flexWrap: "wrap"
+  }
+  // imageStyle: {
+  //   // margin: "4px",
+  //   // border: "1px solid #ddd",
+  //   // borderRadius: "4px",
+  //   // padding: "5px",
+  //   height: "1500px"
+  // }
+};
+export default MyGallery;
